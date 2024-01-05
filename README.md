@@ -69,4 +69,6 @@ sudo systemctl enable reboot.service
 ```
 
 ETC. Stop the service
+```sh
 sudo systemctl disable reboot.service
+```
