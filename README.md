@@ -1,6 +1,6 @@
-# Reboot Raspi4B using a Physical Button
-You can reboot your Raspberry Pi 4B using a physical switch connected to GPIO pin of the device.
-This programme is based on this blog: [Please check it out](https://gpiozero.readthedocs.io/en/stable/recipes.html#shutdown-button).
+# Reboot Raspberry Pi 4B using a Physical Button
+You can reboot your Raspberry Pi 4B using a physical switch connected to a GPIO pin of the device.
+The main programme is based on this page: [Please check it out](https://gpiozero.readthedocs.io/en/stable/recipes.html#shutdown-button).
 
 Install the follwing python modules: gpiozero, lgpio
 ```sh
@@ -11,12 +11,11 @@ sudo apt install python3-lgpio
 ```
 
 ## Programme
-You can reboot your Raspberry Pi 4B using the programme but be careful with the directory.
-(You need to activate your programme as you will see in the next section)
-You may put the reboot.py file anywhere you'd like to but remember the directory.
+You can reboot your Raspberry Pi 4B using the programme.
+You may put the reboot.py at any directory but note the directory.
 You will modify to the directory when you write a service file.
 
-If you'd like to shutdown instead of reboot, modify the last part of reboot function as follows.
+If you'd like to shutdown instead of reboot, modify the last part of reboot function in the python file as follows.
 ```
     check_call(['sudo', 'shutdown', '-h', 'now'])
 ```
@@ -27,7 +26,8 @@ python3 reboot.py
 ```
 
 ## Resistor the programme as a service
-1. Change the authentification to root user as follows.
+Run following in a terminal.
+1. Change the authentification status to root user by follows.
 ```sh
 chmod 755 reboot.py
 ```
@@ -37,14 +37,14 @@ chmod 755 reboot.py
 sudo vi /usr/lib/systemd/system/reboot.service
 ```
 
-Modify the service directory.
-Following example assume that the directory of the programme is in /home/karugamot/presets/.
+Modify the programme file directory.
+Following example assume that the directory of the programme is in /home/hoge/.
 ```sh
 [Unit]
-Description=Reboot raspberry pi by GPIO button input
+Description=Reboot Raspberry Pi by GPIO button input
 
 [Service]
-ExecStart=/usr/bin/python3 /home/karugamot/presets/reboot.py
+ExecStart=/usr/bin/python3 /home/hoge/reboot.py
 
 [Install]
 WantedBy=multi-user.target
@@ -63,12 +63,12 @@ sudo systemctl start reboot.service
 sudo systemctl status reboot.service
 ```
 
-5. Set the service to launch when the raspi is booted
+5. Enable the service so that it is launched when the Raspberry Pi is booted
 ```sh
 sudo systemctl enable reboot.service
 ```
 
-ETC. Stop the service
+ETC. If you'd like to stop the service run the following line.
 ```sh
 sudo systemctl disable reboot.service
 ```
