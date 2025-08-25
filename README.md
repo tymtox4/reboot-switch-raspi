@@ -13,7 +13,7 @@ sudo apt install python3-lgpio
 ## Program
 You can reboot your Raspberry Pi 4B using `reboot.py`.
 You may place this program in any directory, but note the path because you will need it when creating the service file later.
-The following commands assume that the directory is in `/home/hoge/`
+The following commands assume that the directory is in `/home/karugamot/presets`
 
 If you'd like to shut down instead of reboot, modify the last part of the reboot function in the program as follows.
 ```
@@ -32,7 +32,7 @@ Run the following commands in a terminal.
 
 1. Change the file permission:
 ```sh
-chmod 755 /home/hoge/reboot.py
+chmod 755 /home/karugamot/presets/reboot.py
 ```
 
 2. Create a service file and edit it:
@@ -46,7 +46,7 @@ Modify the program file path as needed.
 Description=Reboot Raspberry Pi by GPIO button input
 
 [Service]
-ExecStart=/usr/bin/python3 /home/hoge/reboot.py
+ExecStart=/usr/bin/python3 /home/karugamot/presets/reboot.py
 
 [Install]
 WantedBy=multi-user.target
